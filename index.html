@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Prediction Earn</title>
+</head>
+<body style="text-align:center;font-family:Arial">
+
+<h2>Daily Prediction Earn</h2>
+
+<p>Aaj ka sawal:</p>
+<p><b>Kal price upar jayega?</b></p>
+
+<button onclick="ans('YES')">YES</button>
+<button onclick="ans('NO')">NO</button>
+
+<p id="msg"></p>
+
+<script>
+function ans(a){
+  document.getElementById("msg").innerText =
+  "Aapne jawab diya: " + a;
+}
+</script>
+
+</body>
+</html>
