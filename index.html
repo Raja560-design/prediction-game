@@ -1,8 +1,79 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAND9MszqIBRlLRFtZYjQdnOFjCwNUmhp8",
-  authDomain: "clickpulse-rewards.firebaseapp.com",
-  projectId: "clickpulse-rewards",
-  storageBucket: "clickpulse-rewards.appspot.com",
-  messagingSenderId: "429036598623",
-  appId: "1:429036598623:web:4b6e4cf2441bed71d832ea"
-};
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Prediction Earn</title>
+</head>
+
+<body style="text-align:center;font-family:Arial">
+
+<h2>Daily Prediction Earn</h2>
+
+<!-- LOGIN -->
+<div id="loginBox">
+  <button onclick="login()">Login with Google</button>
+</div>
+
+<!-- USER AREA -->
+<div id="userBox" style="display:none;">
+  <p id="userName"></p>
+  <button onclick="logout()">Logout</button>
+
+  <hr>
+
+  <p><b>Aaj ka sawal:</b></p>
+  <p>Kal price upar jayega?</p>
+
+  <button onclick="ans('YES')">YES</button>
+  <button onclick="ans('NO')">NO</button>
+
+  <p id="msg"></p>
+</div>
+
+<!-- FIREBASE SDK (COMPAT – MUST) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAND9MszqIBRlLRFtZYjQdnOFjCwNUmhp8",
+    authDomain: "clickpulse-rewards.firebaseapp.com",
+    projectId: "clickpulse-rewards",
+    storageBucket: "clickpulse-rewards.appspot.com",
+    messagingSenderId: "429036598623",
+    appId: "1:429036598623:web:4b6e4cf2441bed71d832ea"
+  };
+
+  // INITIALIZE FIREBASE
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function login() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
+  function logout() {
+    auth.signOut();
+  }
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("userBox").style.display = "block";
+      document.getElementById("userName").innerText =
+        "Welcome, " + user.displayName;
+    } else {
+      document.getElementById("loginBox").style.display = "block";
+      document.getElementById("userBox").style.display = "none";
+    }
+  });
+
+  function ans(a) {
+    document.getElementById("msg").innerText =
+      "Aapne jawab diya: " + a;
+  }
+</script>
+
+</body>
+</html>
+
