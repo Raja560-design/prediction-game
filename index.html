@@ -55,7 +55,14 @@
   function logout() {
     auth.signOut();
   }
-
+auth.getRedirectResult().then(result => {
+  if (result.user) {
+    console.log("Redirect login success");
+  }
+}).catch(error => {
+  alert(error.message);
+});
+  
   auth.onAuthStateChanged(user => {
     if (user) {
       document.getElementById("loginBox").style.display = "none";
